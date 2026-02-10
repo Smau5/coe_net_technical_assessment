@@ -30,7 +30,8 @@ public class OrdersController : ControllerBase
         {
             Customer = new CustomerResponse
             {
-                Name = o.Customer.Name
+                Name = o.Customer.Name,
+                Id = o.CustomerId
             },
             Id = o.Id,
             Status = o.Status.ToString()
@@ -55,13 +56,20 @@ public class OrdersController : ControllerBase
         var order = await AssessmentDbContext.Orders.Include(o => o.Customer)
             .FirstOrDefaultAsync(o => o.Id == orderId);
 
+        if(order is null)
+        {
+            return NotFound("Order not found");
+
+        }
+
         var response = new OrderResponse
         {
             Id = order.Id,
             Status = order.Status.ToString(),
             Customer = new CustomerResponse
             {
-                Name = order.Customer.Name
+                Name = order.Customer.Name,
+                Id = order.Customer.Id
             }
         };
 
@@ -111,7 +119,8 @@ public class OrdersController : ControllerBase
             Status = order.Status.ToString(),
             Customer = new CustomerResponse
             {
-                Name = order.Customer.Name
+                Name = order.Customer.Name,
+                Id = order.Customer.Id
             }
         };
 
@@ -161,7 +170,8 @@ public class OrdersController : ControllerBase
             Status = order.Status.ToString(),
             Customer = new CustomerResponse
             {
-                Name = order.Customer.Name
+                Name = order.Customer.Name,
+                Id = order.Customer.Id
             }
         };
 
