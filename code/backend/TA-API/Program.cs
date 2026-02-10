@@ -9,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Comment out AddControllers/MapControllers if you prefer to implement Minimal APIs.
     builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
 }
 var app = builder.Build();
 {
@@ -16,6 +18,13 @@ var app = builder.Build();
 
     app.MapGet("/", () => "Technical Assessment API");
     app.MapGet("/lbhealth", () => "Technical Assessment API");
+
+
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
     app.MapControllers();
 }
