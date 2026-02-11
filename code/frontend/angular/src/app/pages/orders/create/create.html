@@ -1,0 +1,22 @@
+<h1>Create new order</h1>
+
+<form [formGroup]="orderForm" class="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="form-field">
+    <mat-label>Customer</mat-label>
+    <mat-select formControlName="customer">
+      @for (customer of customers(); track customer) {
+      <mat-option [value]="customer.id">{{customer.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="form-field">
+    <mat-label>Status</mat-label>
+    <mat-select formControlName="status">
+      @for (status of status; track status) {
+      <mat-option [value]="status.value">{{status.name}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <button matButton type="submit">Create order</button>
+</form>
